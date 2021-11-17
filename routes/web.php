@@ -16,3 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::group(['middleware' => 'auth'], function () {
+  Route::resource('albums', App\Http\Controllers\AlbumController::class)->except('show');
+  Route::resource('photos', App\Http\Controllers\PhotoController::class)->except('show');
+});
